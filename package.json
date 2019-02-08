@@ -1,0 +1,23 @@
+{
+  "name": "churchmanagement",
+  "version": "1.0.0",
+  "description": "A software to help manage church functions. ",
+  "main": "index.js",
+  "scripts": {
+    "test": "index.js",
+    "postinstall": "install-app-deps",
+    "start": "electron ."
+  },
+  "author": "Kepler Invents",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^4.0.2",
+    "electron-builder": "^20.38.5"
+  },
+  "dependencies": {
+    "chart.js": "^2.7.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "sqlite3": "^4.0.6"
+  }
+}

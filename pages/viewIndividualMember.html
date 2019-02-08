@@ -1,0 +1,23 @@
+<html>
+    <head>
+        
+    </head>
+
+    <body>
+        <h1>This will be to see the individual member's information</h1>
+        <br>
+        <h1 id="usersName"> tester </h1>
+        
+        <script>
+            const electron = require('electron');
+            const {ipcRenderer} = electron;
+            document.getElementById('usersName').innerHTML = "new HTML"
+            h1.innerHTML = 'testing';
+            ipcRenderer.on('item:userData', function(e, item){
+                const h1 = document.querySelector('h1');
+                h1.innerHTML = 'testing';
+                document.getElementById('usersName').innerHTML = "newer HTML"
+            });
+        </script>
+    </body>
+</html>

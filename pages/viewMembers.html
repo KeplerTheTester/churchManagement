@@ -1,0 +1,91 @@
+<html>
+    <head>
+        <h1>Viewing all members of the church</h1> 
+        <script src="index.js"></script>     
+        <script src="/logic/manipulation.js"> </script>  
+    </head>
+
+    <body>
+        <h1 id="tester">Test touch</h1>
+        <br>
+        <p>This is where you will see all the members of the church as a list</p>
+        <br>
+        
+        <table id="myTable" border="1">
+        </table>
+        <ul> </ul>
+        <br>
+        <div height='200px'>
+
+        </div>
+        <br>
+        <div >
+            <button type="enter" id="testBtn">Test Button</button>
+        </div>
+        <script>
+            const electron = require('electron');
+            const {ipcRenderer} = electron;
+            const ul = document.querySelector('ul');
+            const table = document.querySelector('table');
+            ipcRenderer.on('item:add', function(e, item){
+                const li = document.createElement('li');
+                const itemText = document.createTextNode(item);
+                li.appendChild(itemText);
+                //ul.appendChild(li);
+                var row = table.insertRow(0);
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                cell1.innerHTML = item.firstName;
+                cell2.innerHTML = item.lastName;
+            });
+
+            ipcRenderer.on('item:clear', function(){
+                ul.innerHTML = '';
+            });
+            var row = table.insertRow(0);
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            cell1.innerHTML = 'id';
+            cell2.innerHTML = 'name'; 
+            ipcRenderer.on('item:datatrial', function(e, item)
+            {
+                var row = table.insertRow(1);
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                cell1.innerHTML = item.id;
+                cell2.innerHTML = item.name;
+                /*
+                    This creates an event listener that sends to index.js
+                    and sends a request to display user data on row 
+                    clicked
+                */
+                row.addEventListener('click', function()
+                {
+                    console.log('row was clicked' + cell2.innerHTML);
+                    var userId = cell1.innerHTML;
+                    var userName = cell2.innerHTML;
+                    var item = {id:userId, name: userName};
+
+                    ipcRenderer.send('item:viewUser', item);
+                });                  
+            });
+        </script>
+
+        <!--This script will be to add event listener to the table-->
+        <script>
+            /*document.getElementById("tester").addEventListener('click', function() {
+                console.log("h1");
+            });  */
+            /*document.getElementById("myTable").addEventListener('click', function() {
+                console.log("table");
+                var myCollection = document.getElementsByTagName("tr");
+                console.log("how many tr" + myCollection.length);
+            });  
+            document.getElementsByTagName("H1").addEventListener('click', function() {
+                console.log("h1 worked");
+            });
+            */
+            
+        </script>
+    </body>
+</html>

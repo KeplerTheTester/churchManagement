@@ -1,0 +1,35 @@
+<html>
+    <head>
+
+    </head>
+
+    <body>
+        <h1>This will contain all the members information</h1>
+        <hr>
+        <form>
+            <div>
+                <label>First name</label>
+                <input type="text" id="item" autofocus>
+                <label>Last name</label>
+                <input type="text" id="item1" autofocus>
+            </div>
+            <button type="submit">add member</button>
+        </form>
+
+        <script>
+            const electron = require('electron');
+            const {ipcRenderer} = electron;
+
+            const form = document.querySelector('form');
+            form.addEventListener('submit', submitForm);
+
+            function submitForm(e){
+                e.preventDefault();
+                const firstName = document.querySelector('#item').value;
+                const lastName = document.querySelector('#item1').value;
+                const item = {firstName, lastName};
+                ipcRenderer.send('item:add', item);
+            };
+        </script>
+    </body>
+</html>
